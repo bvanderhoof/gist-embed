@@ -10,9 +10,11 @@ Lightning fast zero dependency library for embedding gists on your webpage.
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gist-embed@1.0.0/gist-embed.min.js"></script>
 ```
 
-### Add code element with data-gist-id attribute
+### Add code element to your webpage with data-gist-id attribute
 
+```
 <code data-gist-id="5457595"></code>
+```
 
 # FAQ
 
