@@ -1,6 +1,6 @@
 # gist-embed
 
-Lightning fast zero dependecy library for embedding gists on your webpage
+Lightning fast zero dependency library for embedding gists on your webpage.
 
 # FAQ
 

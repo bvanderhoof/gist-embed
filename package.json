@@ -1,0 +1,25 @@
+{
+  "name": "gist-embed",
+  "version": "1.0.0",
+  "description": "Lightning fast zero dependency library for embedding gists on your webpage",
+  "main": "gist-embed.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bvanderhoof/gist-embed.git"
+  },
+  "keywords": [
+    "gist",
+    "embed",
+    "gist",
+    "embed"
+  ],
+  "author": "Blair Vanderhoof",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bvanderhoof/gist-embed/issues"
+  },
+  "homepage": "https://github.com/bvanderhoof/gist-embed#readme"
+}
