@@ -1,6 +1,6 @@
 {
   "name": "gist-embed",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "Lightning fast zero dependency library for embedding gists on your webpage",
   "main": "gist-embed.js",
   "repository": {
