@@ -3,12 +3,28 @@
 // This comes from the babel rewire plugin setup in babelrc
 // To modify a function use __Rewire__
 
-import index from '../src/index.ts';
+// Must be require so we can re-require and override index on each pass
+let index = require('../src/index.ts');
+const JSONP_CALLBACK_PREFIX = '_gistEmbedJSONP';
+const MOCK_RESPONSE = {
+  div: 'content',
+  stylesheet: 'https://www.github.com/main.css',
+};
+const MOCK_ERROR_RESPONSE = null;
+
+function generateMockElement() {
+  const gistID = '1';
+  const element = document.createElement('code');
+  element.setAttribute('data-gist-id', gistID);
+  return element;
+}
 
 beforeEach(() => {
   document.body.innerHTML = '';
-  jest.clearAllMocks();
+  jest.clearAllMocks().resetModules();
   __rewire_reset_all__();
+  // Re-require before each test so we reset private scope variables
+  index = require('../src/index.ts');
 });
 
 function addPlainGistEmbedDOMToBody() {
@@ -48,8 +64,8 @@ test('expect getAllGistEmbedDOMNodes to not return nodes', () => {
 
 test('generateJSONPCallbackPrefix returns incremented values', () => {
   const generateJSONPCallbackPrefix = getFN('generateJSONPCallbackPrefix');
-  expect(generateJSONPCallbackPrefix()).toEqual('_gistEmbedJSONP_1');
-  expect(generateJSONPCallbackPrefix()).toEqual('_gistEmbedJSONP_2');
+  expect(generateJSONPCallbackPrefix()).toEqual(`${JSONP_CALLBACK_PREFIX}_1`);
+  expect(generateJSONPCallbackPrefix()).toEqual(`${JSONP_CALLBACK_PREFIX}_2`);
 });
 
 test('appendStylesheet appends if not exists', () => {
@@ -83,4 +99,66 @@ test('getJSONP', () => {
   getJSONP(gistID, callback);
   let scriptTags = document.querySelectorAll('script');
   expect(scriptTags.length).toEqual(1);
+  expect(scriptTags[0].src).toEqual(
+    `https://gist.github.com/1.json?callback=${JSONP_CALLBACK_PREFIX}_1`,
+  );
+  expect(window[`${JSONP_CALLBACK_PREFIX}_1`]).toBeTruthy();
+});
+
+test('fetchJSONPForGistEmbedDOMNode', () => {
+  const fetchJSONPForGistEmbedDOMNode = getFN('fetchJSONPForGistEmbedDOMNode');
+  rewireFn('getJSONP', jest.fn((_, cb) => cb(MOCK_RESPONSE)));
+  const getJSONP = getFN('getJSONP');
+  rewireFn('handleGetJSONPResponse', jest.fn());
+  const handleGetJSONPResponse = getFN('handleGetJSONPResponse');
+  const element = generateMockElement();
+
+  fetchJSONPForGistEmbedDOMNode(element);
+  expect(getJSONP).toBeCalledTimes(1);
+  expect(handleGetJSONPResponse).toBeCalledWith(element, MOCK_RESPONSE);
+});
+
+test('handleGetJSONPResponse success', () => {
+  const handleGetJSONPResponse = getFN('handleGetJSONPResponse');
+  rewireFn('updateDOMNodeWithGistContent', jest.fn());
+  const updateDOMNodeWithGistContent = getFN('updateDOMNodeWithGistContent');
+  const element = generateMockElement();
+
+  handleGetJSONPResponse(element, MOCK_RESPONSE);
+  expect(updateDOMNodeWithGistContent).toBeCalledWith(
+    element,
+    MOCK_RESPONSE.stylesheet,
+    MOCK_RESPONSE.div,
+  );
+});
+
+test('handleGetJSONPResponse error', () => {
+  const handleGetJSONPResponse = getFN('handleGetJSONPResponse');
+  rewireFn('updateDOMNodeWithGistContent', jest.fn());
+  const updateDOMNodeWithGistContent = getFN('updateDOMNodeWithGistContent');
+  const element = generateMockElement();
+  document.body.appendChild(element);
+
+  // Test error handling
+  handleGetJSONPResponse(element, MOCK_ERROR_RESPONSE);
+  expect(updateDOMNodeWithGistContent).not.toBeCalled();
+  expect(document.querySelector('code').innerHTML).toEqual(
+    'Error fetching gist',
+  );
+});
+
+test('updateDOMNodeWithGistContent', () => {
+  const updateDOMNodeWithGistContent = getFN('updateDOMNodeWithGistContent');
+  const element = generateMockElement();
+  document.body.appendChild(element);
+
+  updateDOMNodeWithGistContent(
+    element,
+    MOCK_RESPONSE.stylesheet,
+    MOCK_RESPONSE.div,
+  );
+  expect(document.querySelector('code').innerHTML).toEqual(MOCK_RESPONSE.div);
+  expect(document.querySelector('link').getAttribute('href')).toEqual(
+    MOCK_RESPONSE.stylesheet,
+  );
 });

@@ -73,30 +73,27 @@ function getJSONP(
 function fetchJSONPForGistEmbedDOMNode(gistDOMNode: HTMLElement) {
   const gistID = gistDOMNode.getAttribute(GIST_ID_ATTRIBUTE_NAME);
 
-  function callback(response: GistJSONResponse) {
-    if (
-      response == null ||
-      response.div == null ||
-      response.stylesheet == null
-    ) {
-      gistDOMNode.innerHTML = 'Error fetching gist';
-      return;
-    }
-
-    handleJSONPResponseForDOMNode(
-      gistDOMNode,
-      response.stylesheet,
-      response.div,
-    );
-  }
-
   if (gistID != null && gistID !== '') {
-    getJSONP(gistID, callback);
+    getJSONP(gistID, function(response: GistJSONResponse) {
+      handleGetJSONPResponse(gistDOMNode, response);
+    });
   }
 }
 
+function handleGetJSONPResponse(
+  gistDOMNode: HTMLElement,
+  response: GistJSONResponse,
+) {
+  if (response == null || response.div == null || response.stylesheet == null) {
+    gistDOMNode.innerHTML = 'Error fetching gist';
+    return;
+  }
+
+  updateDOMNodeWithGistContent(gistDOMNode, response.stylesheet, response.div);
+}
+
 // From the JSONP response, add the stylesheet to the DOM and replace the DOM Node contents
-function handleJSONPResponseForDOMNode(
+function updateDOMNodeWithGistContent(
   gistDOMNode: HTMLElement,
   responseStylesheet: string,
   responseDIV: string,
