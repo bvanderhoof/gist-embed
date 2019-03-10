@@ -25,7 +25,6 @@ Lightning fast zero dependency library for embedding gists on your webpage.
 
 - I recommend using VSCode to develop
 - Install prettier VSCode extension
-- If you don't yet have Typescript installed globally: `npm install -g typescript`
 - `npm install`
 
 ## Development

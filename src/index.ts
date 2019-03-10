@@ -18,11 +18,7 @@ type GistJSONResponse =
   | undefined;
 
 // document ready, call init
-if (
-  document['attachEvent'] != null
-    ? document.readyState === 'complete'
-    : document.readyState !== 'loading'
-) {
+if (document.readyState === 'complete') {
   init();
 } else {
   document.addEventListener('DOMContentLoaded', init);
