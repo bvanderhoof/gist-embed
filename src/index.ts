@@ -1,3 +1,5 @@
+import removeAllLineNumbers from './modifiers/removeAllLineNumbers';
+
 // Keep track of stylesheets added. Only append a new stylesheet if it doesn't exist
 const StylesheetURLs: Set<string> = new Set();
 // Prefix for fetching via JSONP
@@ -8,6 +10,13 @@ let _jsonpCallbackIDCounter: number = 0;
 const GIST_URL_PREFIX: string = 'https://gist.github.com/';
 // The attribute we check on the DOM elements to grab the gist id
 const GIST_ID_ATTRIBUTE_NAME: string = 'data-gist-id';
+
+enum MODIFIER_ATTRIBUTES {
+  hideLineNumbers = 'data-gist-hide-line-numbers',
+}
+const MODIFIER_ATTRIBUTE_NAMES: MODIFIER_ATTRIBUTES[] = [
+  MODIFIER_ATTRIBUTES.hideLineNumbers,
+];
 
 type GistJSONResponse =
   | {
@@ -101,4 +110,21 @@ function updateDOMNodeWithGistContent(
   appendStylesheet(responseStylesheet);
   // update
   gistDOMNode.innerHTML = responseDIV;
+
+  modify(gistDOMNode);
+}
+
+function modify(gistDOMNode: HTMLElement) {
+  MODIFIER_ATTRIBUTE_NAMES.forEach(attribute => {
+    const attributeValue = gistDOMNode.getAttribute(attribute);
+    if (attributeValue != null && attributeValue !== '') {
+      switch (attribute) {
+        case 'data-gist-hide-line-numbers':
+          if (attributeValue === 'true') {
+            removeAllLineNumbers(gistDOMNode);
+          }
+          break;
+      }
+    }
+  });
 }

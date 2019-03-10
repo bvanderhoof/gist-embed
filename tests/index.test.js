@@ -5,6 +5,8 @@
 
 // Must be require so we can re-require and override index on each pass
 let index = require('../src/index.ts');
+let removeAllLineNumbers = require('../src/modifiers/removeAllLineNumbers.ts');
+
 const JSONP_CALLBACK_PREFIX = '_gistEmbedJSONP';
 const MOCK_RESPONSE = {
   div: 'content',
@@ -23,8 +25,10 @@ beforeEach(() => {
   document.body.innerHTML = '';
   jest.clearAllMocks().resetModules();
   __rewire_reset_all__();
+  jest.mock('../src/modifiers/removeAllLineNumbers.ts');
   // Re-require before each test so we reset private scope variables
   index = require('../src/index.ts');
+  removeAllLineNumbers = require('../src/modifiers/removeAllLineNumbers.ts');
 });
 
 function addPlainGistEmbedDOMToBody() {
@@ -149,6 +153,8 @@ test('handleGetJSONPResponse error', () => {
 
 test('updateDOMNodeWithGistContent', () => {
   const updateDOMNodeWithGistContent = getFN('updateDOMNodeWithGistContent');
+  rewireFn('modify', jest.fn());
+  const modify = getFN('modify');
   const element = generateMockElement();
   document.body.appendChild(element);
 
@@ -161,4 +167,16 @@ test('updateDOMNodeWithGistContent', () => {
   expect(document.querySelector('link').getAttribute('href')).toEqual(
     MOCK_RESPONSE.stylesheet,
   );
+  expect(modify).toBeCalledWith(element);
+});
+
+test('modify', () => {
+  const modify = getFN('modify');
+  const element = generateMockElement();
+  element.setAttribute('data-gist-hide-line-numbers', 'true');
+  document.body.appendChild(element);
+
+  modify(element);
+
+  expect(removeAllLineNumbers.default).toBeCalledWith(element);
 });
