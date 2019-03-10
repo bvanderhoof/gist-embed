@@ -34,6 +34,12 @@ Lightning fast zero dependency library for embedding gists on your webpage.
 - navigate to http://localhost:8080/test.html
 - webpack serves the compiled TypeScript `index.ts` to `/index.js` when in development mode
 
+## Tests
+
+- Please add unti tests for your new code.
+- `npm test`
+- Use `Rewire` methods to get access to private functions in `index.ts`. See `tests/index.test.js` for examples.
+
 ## Committing
 
 - `npm run prod` to create a new gist-embed.min.js file
