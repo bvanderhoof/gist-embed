@@ -15,27 +15,33 @@ function addPlainGistEmbedDOMToBody() {
   document.body.innerHTML = '<code data-gist-id="123"/>';
 }
 
+function getFN(fnName) {
+  return index.__get__(fnName);
+}
+
+function rewireFn(fnName, value) {
+  return index.__Rewire__(fnName, value);
+}
+
 test('expect getAllGistEmbedDOMNodes to be called from index', () => {
-  index.__Rewire__('getAllGistEmbedDOMNodes', jest.fn(() => [{}, {}]));
-  index.__Rewire__('fetchJSONPForGistEmbedDOMNode', jest.fn(() => {}));
-  index.__get__('init')();
-  expect(index.__get__('getAllGistEmbedDOMNodes')).toHaveBeenCalledTimes(1);
+  rewireFn('getAllGistEmbedDOMNodes', jest.fn(() => [{}, {}]));
+  rewireFn('fetchJSONPForGistEmbedDOMNode', jest.fn(() => {}));
+  getFN('init')();
+  expect(getFN('getAllGistEmbedDOMNodes')).toHaveBeenCalledTimes(1);
 });
 
 test('expect fetchJSONPForGistEmbedDOMNode to be called from index', () => {
-  index.__Rewire__('fetchJSONPForGistEmbedDOMNode', jest.fn(() => {}));
+  rewireFn('fetchJSONPForGistEmbedDOMNode', jest.fn(() => {}));
   addPlainGistEmbedDOMToBody();
-  index.__get__('init')();
-  expect(index.__get__('fetchJSONPForGistEmbedDOMNode')).toHaveBeenCalledTimes(
-    1,
-  );
+  getFN('init')();
+  expect(getFN('fetchJSONPForGistEmbedDOMNode')).toHaveBeenCalledTimes(1);
 });
 
 test('expect getAllGistEmbedDOMNodes to return a node ', () => {
   addPlainGistEmbedDOMToBody();
-  expect(index.__get__('getAllGistEmbedDOMNodes')().length).toEqual(1);
+  expect(getFN('getAllGistEmbedDOMNodes')().length).toEqual(1);
 });
 
 test('expect getAllGistEmbedDOMNodes to not return nodes', () => {
-  expect(index.__get__('getAllGistEmbedDOMNodes')().length).toEqual(0);
+  expect(getFN('getAllGistEmbedDOMNodes')().length).toEqual(0);
 });
