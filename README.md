@@ -19,6 +19,22 @@ Lightning fast zero dependency library for embedding gists on your webpage.
 <code data-gist-id="5457595"></code>
 ```
 
+# Contributing
+
+## Setup
+
+- I recommend using VSCode to develop
+- Install prettier VSCode extension
+- If you don't yet have Typescript installed globally: `npm install -g typescript`
+- `npm install`
+
+## Development
+
+- To start the dev server: `npm run dev`
+- This starts webpack with a local web server and hot reloading
+- navigate to http://localhost:8080/test.html
+- webpack serves the compiled TypeScript `index.ts` to `/index.js` when in development mode
+
 # FAQ
 
 ## What happened to blairvanderhoof/gist-embed based on jQuery?
