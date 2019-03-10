@@ -9,7 +9,7 @@ Lightning fast zero dependency library for embedding gists on your webpage.
 ```html
 <script
   type="text/javascript"
-  src="https://cdn.jsdelivr.net/npm/gist-embed@1.0.0/gist-embed.min.js"
+  src="https://cdn.jsdelivr.net/npm/gist-embed@1.0.1/dist/gist-embed.min.js"
 ></script>
 ```
 
@@ -34,6 +34,12 @@ Lightning fast zero dependency library for embedding gists on your webpage.
 - This starts webpack with a local web server and hot reloading
 - navigate to http://localhost:8080/test.html
 - webpack serves the compiled TypeScript `index.ts` to `/index.js` when in development mode
+
+## Committing
+
+- `npm run prod` to create a new gist-embed.min.js file
+- Update the README with the new jsdelivr script based on new version bump
+- Husky, a git hook tool, will automatically lint and run prettier when you `git commit`
 
 # FAQ
 
