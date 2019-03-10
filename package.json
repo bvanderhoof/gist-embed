@@ -63,6 +63,7 @@
   },
   "lint-staged": {
     "*.{js,md,css,html,jsx,ts,tsx}": [
+      "npm test",
       "prettier --write",
       "git add"
     ]
