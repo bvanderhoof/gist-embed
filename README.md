@@ -2,9 +2,9 @@
 
 Lightning fast zero dependency library for embedding gists on your webpage.
 
-## Usage
+# Usage
 
-### Add script tag
+## Add script tag
 
 ```html
 <script
@@ -13,11 +13,19 @@ Lightning fast zero dependency library for embedding gists on your webpage.
 ></script>
 ```
 
-### Add code element to your webpage with data-gist-id attribute
+## Add code element to your webpage with data-gist-id attribute
 
 ```html
 <code data-gist-id="5457595"></code>
 ```
+
+## Modifiers
+
+You can add attributes to your HTML Element that modify the gist embed.
+
+- `data-gist-hide-line-numbers`
+  - **supported values**: "true"
+  - Removes all of the line numbers in the left hand gutter of the gist
 
 # Contributing
 
