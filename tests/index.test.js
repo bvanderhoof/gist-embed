@@ -74,3 +74,13 @@ test('appendStylesheet appends if not exists', () => {
   expect(linkTags[1].getAttribute('href')).toEqual(main2CSSURL);
   expect(linkTags.length).toEqual(2);
 });
+
+test('getJSONP', () => {
+  const getJSONP = getFN('getJSONP');
+  const gistID = '1';
+  const callback = jest.fn();
+
+  getJSONP(gistID, callback);
+  let scriptTags = document.querySelectorAll('script');
+  expect(scriptTags.length).toEqual(1);
+});
