@@ -42,9 +42,8 @@ Lightning fast zero dependency library for embedding gists on your webpage.
 
 ## Committing
 
-- `npm run prod` to create a new gist-embed.min.js file
 - Update the README with the new jsdelivr script based on new version bump
-- Husky, a git hook tool, will automatically lint and run prettier when you `git commit`
+- Husky, a git hook tool, will automatically lint and run prettier when you `git commit` as well as run jest tests and create the prod minified bundle.
 
 # FAQ
 
