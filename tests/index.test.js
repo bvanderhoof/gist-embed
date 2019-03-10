@@ -5,7 +5,7 @@
 
 // Must be require so we can re-require and override index on each pass
 let index = require('../src/index.ts');
-let removeAllLineNumbers = require('../src/modifiers/removeAllLineNumbers.ts');
+let hideLineNumbers = require('../src/modifiers/hideLineNumbers.ts');
 
 const JSONP_CALLBACK_PREFIX = '_gistEmbedJSONP';
 const MOCK_RESPONSE = {
@@ -25,10 +25,10 @@ beforeEach(() => {
   document.body.innerHTML = '';
   jest.clearAllMocks().resetModules();
   __rewire_reset_all__();
-  jest.mock('../src/modifiers/removeAllLineNumbers.ts');
+  jest.mock('../src/modifiers/hideLineNumbers.ts');
   // Re-require before each test so we reset private scope variables
   index = require('../src/index.ts');
-  removeAllLineNumbers = require('../src/modifiers/removeAllLineNumbers.ts');
+  hideLineNumbers = require('../src/modifiers/hideLineNumbers.ts');
 });
 
 function addPlainGistEmbedDOMToBody() {
@@ -178,5 +178,5 @@ test('modify', () => {
 
   modify(element);
 
-  expect(removeAllLineNumbers.default).toBeCalledWith(element);
+  expect(hideLineNumbers.default).toBeCalledWith(element);
 });

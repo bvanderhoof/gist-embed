@@ -26,6 +26,9 @@ You can add attributes to your HTML Element that modify the gist embed.
 - `data-gist-hide-line-numbers`
   - **supported values**: "true"
   - Removes all of the line numbers in the left hand gutter of the gist
+- `data-gist-hide-footer`
+  - **supported values**: "true"
+  - Removes the gist footer
 
 # Contributing
 

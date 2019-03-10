@@ -1,4 +1,5 @@
-import removeAllLineNumbers from './modifiers/removeAllLineNumbers';
+import hideLineNumbers from './modifiers/hideLineNumbers';
+import hideFooter from './modifiers/hideFooter';
 
 // Keep track of stylesheets added. Only append a new stylesheet if it doesn't exist
 const StylesheetURLs: Set<string> = new Set();
@@ -12,10 +13,12 @@ const GIST_URL_PREFIX: string = 'https://gist.github.com/';
 const GIST_ID_ATTRIBUTE_NAME: string = 'data-gist-id';
 
 enum MODIFIER_ATTRIBUTES {
-  hideLineNumbers = 'data-gist-hide-line-numbers',
+  hideLineNumbersAttribute = 'data-gist-hide-line-numbers',
+  hideFooterAttribute = 'data-gist-hide-footer',
 }
 const MODIFIER_ATTRIBUTE_NAMES: MODIFIER_ATTRIBUTES[] = [
-  MODIFIER_ATTRIBUTES.hideLineNumbers,
+  MODIFIER_ATTRIBUTES.hideLineNumbersAttribute,
+  MODIFIER_ATTRIBUTES.hideFooterAttribute,
 ];
 
 type GistJSONResponse =
@@ -121,7 +124,12 @@ function modify(gistDOMNode: HTMLElement) {
       switch (attribute) {
         case 'data-gist-hide-line-numbers':
           if (attributeValue === 'true') {
-            removeAllLineNumbers(gistDOMNode);
+            hideLineNumbers(gistDOMNode);
+          }
+          break;
+        case 'data-gist-hide-footer':
+          if (attributeValue === 'true') {
+            hideFooter(gistDOMNode);
           }
           break;
       }
