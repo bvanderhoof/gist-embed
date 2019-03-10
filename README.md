@@ -53,6 +53,7 @@ You can add attributes to your HTML Element that modify the gist embed.
 - Please add unti tests for your new code.
 - `npm test`
 - Use `Rewire` methods to get access to private functions in `index.ts`. See `tests/index.test.js` for examples.
+- Add an example to `test.html`
 
 ## Committing
 
