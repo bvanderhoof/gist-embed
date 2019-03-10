@@ -2,7 +2,6 @@ import hideLineNumbers from '../src/modifiers/hideLineNumbers.ts';
 
 function generateMockElement() {
   const element = document.createElement('code');
-  element.setAttribute('data-gist-hide-line-numbers', 'true');
   const lineNumberDIV = document.createElement('div');
   lineNumberDIV.classList.add('js-line-number');
   element.appendChild(lineNumberDIV);

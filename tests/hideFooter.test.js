@@ -2,7 +2,6 @@ import hideFooter from '../src/modifiers/hideFooter.ts';
 
 function generateMockElement() {
   const element = document.createElement('code');
-  element.setAttribute('data-gist-hide-footer', 'true');
 
   const footerDIV = document.createElement('div');
   footerDIV.classList.add('gist-meta');
