@@ -99,5 +99,6 @@ function updateDOMNodeWithGistContent(
   responseDIV: string,
 ) {
   appendStylesheet(responseStylesheet);
+  // update
   gistDOMNode.innerHTML = responseDIV;
 }
