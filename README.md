@@ -19,6 +19,14 @@ Lightning fast zero dependency library for embedding gists on your webpage.
 <code data-gist-id="5457595"></code>
 ```
 
+## Global settings and init
+
+- You can add an object with settings to `window.GistEmbedSettings` before you include the gist-embed script tag
+- Settings supported:
+  - `baseURL`: Specify a base url used to fetch the gist. Defaults to `https://gist.github.com`.
+- You can run the init to parse the elements at any time. This is useful when your code element is added after the script tag include has already parse the elements on page load.
+  - `window.GistEmbed.init()`: This will parse all the elements again with `data-gist-id`.
+
 ## Modifiers
 
 You can add attributes to your HTML Element that modify the gist embed.

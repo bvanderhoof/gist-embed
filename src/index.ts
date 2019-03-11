@@ -3,6 +3,14 @@ import hideFooter from './modifiers/hideFooter';
 import caption from './modifiers/caption';
 import line from './modifiers/line';
 
+// Global methods
+const GIST_EMBED_GLOBAL_FUNC_NAME = 'GistEmbed';
+const GIST_EMBED_GLOBAL_SETTINGS_NAME = 'GistEmbedSettings';
+const GIST_EMBED_GLOBAL_SETTINGS_BASE_URL_NAME = 'baseURL';
+window[GIST_EMBED_GLOBAL_SETTINGS_NAME] =
+  window[GIST_EMBED_GLOBAL_SETTINGS_NAME] || {};
+window[GIST_EMBED_GLOBAL_FUNC_NAME] = {};
+
 // Keep track of stylesheets added. Only append a new stylesheet if it doesn't exist
 const StylesheetURLs: Set<string> = new Set();
 // Prefix for fetching via JSONP
@@ -10,7 +18,11 @@ const JSONP_CALLBACK_PREFIX: string = '_gistEmbedJSONP_';
 // Global counter for each JSONP called so we can append to prefix to create a unique JSONP callback
 let _jsonpCallbackIDCounter: number = 0;
 // URL prefix to get the JSONP result
-const GIST_URL_PREFIX: string = 'https://gist.github.com/';
+// You can sepcify a base url if you'd like
+const GIST_URL_PREFIX: string =
+  window[GIST_EMBED_GLOBAL_SETTINGS_NAME][
+    GIST_EMBED_GLOBAL_SETTINGS_BASE_URL_NAME
+  ] || 'https://gist.github.com/';
 // The attribute we check on the DOM elements to grab the gist id
 const GIST_ID_ATTRIBUTE_NAME: string = 'data-gist-id';
 // Attribute used to specify file to fetch during the request in case the gist is multi-file
@@ -49,6 +61,9 @@ if (document.readyState === 'complete') {
 function init() {
   Array.from(getAllGistEmbedDOMNodes()).forEach(fetchJSONPForGistEmbedDOMNode);
 }
+
+// Expose init so we can execute it after dom ready if desired
+window[GIST_EMBED_GLOBAL_FUNC_NAME].init = init;
 
 // returns all dom nodes with attribute GIST_ID_ATTRIBUTE_NAME
 function getAllGistEmbedDOMNodes(): NodeList {

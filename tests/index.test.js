@@ -43,6 +43,11 @@ function rewireFn(fnName, value) {
   return index.__Rewire__(fnName, value);
 }
 
+test('window exists', () => {
+  expect(window.GistEmbed.init).toEqual(getFN('init'));
+  expect(window.GistEmbedSettings).toBeTruthy();
+});
+
 test('expect getAllGistEmbedDOMNodes to be called from index', () => {
   rewireFn('getAllGistEmbedDOMNodes', jest.fn(() => [{}, {}]));
   rewireFn('fetchJSONPForGistEmbedDOMNode', jest.fn(() => {}));
