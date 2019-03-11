@@ -2,6 +2,7 @@ import hideLineNumbers from './modifiers/hideLineNumbers';
 import hideFooter from './modifiers/hideFooter';
 import caption from './modifiers/caption';
 import line from './modifiers/line';
+import highlightLine from './modifiers/highlightLine';
 
 // Global methods
 const GIST_EMBED_GLOBAL_FUNC_NAME = 'GistEmbed';
@@ -33,12 +34,14 @@ enum MODIFIER_ATTRIBUTES {
   hideFooterAttribute = 'data-gist-hide-footer',
   captionAttribute = 'data-gist-caption',
   lineAttribute = 'data-gist-line',
+  highlightLineAttribute = 'data-gist-highlight-line',
 }
 const MODIFIER_ATTRIBUTE_NAMES: MODIFIER_ATTRIBUTES[] = [
   MODIFIER_ATTRIBUTES.hideLineNumbersAttribute,
   MODIFIER_ATTRIBUTES.hideFooterAttribute,
   MODIFIER_ATTRIBUTES.captionAttribute,
   MODIFIER_ATTRIBUTES.lineAttribute,
+  MODIFIER_ATTRIBUTES.highlightLineAttribute,
 ];
 
 type GistJSONResponse =
@@ -167,6 +170,9 @@ function modify(gistDOMNode: HTMLElement) {
           break;
         case 'data-gist-line':
           line(gistDOMNode, attributeValue);
+          break;
+        case 'data-gist-highlight-line':
+          highlightLine(gistDOMNode, attributeValue);
           break;
       }
     }
