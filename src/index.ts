@@ -1,6 +1,7 @@
 import hideLineNumbers from './modifiers/hideLineNumbers';
 import hideFooter from './modifiers/hideFooter';
 import caption from './modifiers/caption';
+import line from './modifiers/line';
 
 // Keep track of stylesheets added. Only append a new stylesheet if it doesn't exist
 const StylesheetURLs: Set<string> = new Set();
@@ -12,16 +13,20 @@ let _jsonpCallbackIDCounter: number = 0;
 const GIST_URL_PREFIX: string = 'https://gist.github.com/';
 // The attribute we check on the DOM elements to grab the gist id
 const GIST_ID_ATTRIBUTE_NAME: string = 'data-gist-id';
+// Attribute used to specify file to fetch during the request in case the gist is multi-file
+const GIST_FILE_ATTRIBUTE_NAME: string = 'data-gist-file';
 
 enum MODIFIER_ATTRIBUTES {
   hideLineNumbersAttribute = 'data-gist-hide-line-numbers',
   hideFooterAttribute = 'data-gist-hide-footer',
   captionAttribute = 'data-gist-caption',
+  lineAttribute = 'data-gist-line',
 }
 const MODIFIER_ATTRIBUTE_NAMES: MODIFIER_ATTRIBUTES[] = [
   MODIFIER_ATTRIBUTES.hideLineNumbersAttribute,
   MODIFIER_ATTRIBUTES.hideFooterAttribute,
   MODIFIER_ATTRIBUTES.captionAttribute,
+  MODIFIER_ATTRIBUTES.lineAttribute,
 ];
 
 type GistJSONResponse =
@@ -71,15 +76,18 @@ function appendStylesheet(stylesheetURL: string) {
 // Simple getJSONP method that takes a gist id and callback
 function getJSONP(
   gistID: string,
+  fileName: string | undefined | null,
   callback: (response: GistJSONResponse) => void,
 ) {
   const callbackName = generateJSONPCallbackPrefix();
   window[callbackName] = callback;
 
   const scriptEl = document.createElement('script');
+  const fileQueryParam =
+    fileName != null ? `&file=${encodeURIComponent(fileName)}` : '';
   scriptEl.setAttribute(
     'src',
-    `${GIST_URL_PREFIX}${gistID}.json?callback=${callbackName}`,
+    `${GIST_URL_PREFIX}${gistID}.json?callback=${callbackName}${fileQueryParam}`,
   );
   document.body.appendChild(scriptEl);
 }
@@ -87,9 +95,9 @@ function getJSONP(
 // Fetch the JSONP for a given DOM Node
 function fetchJSONPForGistEmbedDOMNode(gistDOMNode: HTMLElement) {
   const gistID = gistDOMNode.getAttribute(GIST_ID_ATTRIBUTE_NAME);
-
+  const fileName = gistDOMNode.getAttribute(GIST_FILE_ATTRIBUTE_NAME);
   if (gistID != null && gistID !== '') {
-    getJSONP(gistID, function(response: GistJSONResponse) {
+    getJSONP(gistID, fileName, function(response: GistJSONResponse) {
       handleGetJSONPResponse(gistDOMNode, response);
     });
   }
@@ -116,6 +124,10 @@ function updateDOMNodeWithGistContent(
   appendStylesheet(responseStylesheet);
   // update
   gistDOMNode.innerHTML = responseDIV;
+  // Avoid id collision. id is the gistID and we could be embedding multiple on the page
+  if (gistDOMNode.children.length) {
+    gistDOMNode.children[0].removeAttribute('id');
+  }
 
   modify(gistDOMNode);
 }
@@ -137,6 +149,9 @@ function modify(gistDOMNode: HTMLElement) {
           break;
         case 'data-gist-caption':
           caption(gistDOMNode, attributeValue);
+          break;
+        case 'data-gist-line':
+          line(gistDOMNode, attributeValue);
           break;
       }
     }

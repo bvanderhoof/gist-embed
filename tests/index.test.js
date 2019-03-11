@@ -99,19 +99,20 @@ test('getJSONP', () => {
   const getJSONP = getFN('getJSONP');
   const gistID = '1';
   const callback = jest.fn();
+  const fileName = 'foo.html';
 
-  getJSONP(gistID, callback);
+  getJSONP(gistID, fileName, callback);
   let scriptTags = document.querySelectorAll('script');
   expect(scriptTags.length).toEqual(1);
   expect(scriptTags[0].src).toEqual(
-    `https://gist.github.com/1.json?callback=${JSONP_CALLBACK_PREFIX}_1`,
+    `https://gist.github.com/1.json?callback=${JSONP_CALLBACK_PREFIX}_1&file=${fileName}`,
   );
   expect(window[`${JSONP_CALLBACK_PREFIX}_1`]).toBeTruthy();
 });
 
 test('fetchJSONPForGistEmbedDOMNode', () => {
   const fetchJSONPForGistEmbedDOMNode = getFN('fetchJSONPForGistEmbedDOMNode');
-  rewireFn('getJSONP', jest.fn((_, cb) => cb(MOCK_RESPONSE)));
+  rewireFn('getJSONP', jest.fn((_, __, cb) => cb(MOCK_RESPONSE)));
   const getJSONP = getFN('getJSONP');
   rewireFn('handleGetJSONPResponse', jest.fn());
   const handleGetJSONPResponse = getFN('handleGetJSONPResponse');

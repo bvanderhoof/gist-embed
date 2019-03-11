@@ -24,14 +24,24 @@ Lightning fast zero dependency library for embedding gists on your webpage.
 You can add attributes to your HTML Element that modify the gist embed.
 
 - `data-gist-hide-line-numbers`
-  - **type**: boolean
+  - **type**: string `('true')`
   - Removes all of the line numbers in the left hand gutter of the gist
 - `data-gist-hide-footer`
-  - **type**: boolean
+  - **type**: boolean `('true')`
   - Removes the gist footer
 - `data-gist-caption`
   - **type**: string
   - Places a header above the gist with your chosen caption string
+- `data-gist-file`
+  - **type**: string
+  - If the gist has multiple files, specify the filename you want to show
+- `data-gist-line`
+  - **type**: string
+  - Line numbers you want to show. The rest are removed.
+  - Examples:
+    - `1,2,3` // Only shows lines 1, 2 and 3
+    - `1-4` // Only shows lines 1, 2, 3, and 4
+    - `1-4,8` // Only shows lines 1, 2, 3, 4, and 8
 
 # Contributing
 
