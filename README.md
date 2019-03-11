@@ -82,15 +82,11 @@ You can add attributes to your HTML Element that modify the gist embed.
 
 - That account will probably go away soon. If you really need to rely on it, I suggest forking it before it's removed.
 
-## But I like using jQuery and using the \$.gist() global method!
+## But I like using jQuery!
 
 - This will be a plain vanilla JS library from now on.
 - The gists should load much faster now that we are removing jQuery as a dependency.
 
-## What about X feature that was supported in blairvanderhoof/gist-embed?
+## Why did you your old account?
 
-- I will slowly add in the existing capabilities. For now, it will simply load a gist with attribute `data-gist-id` added to a HTML element.
-
-## Why did you loose your old account?
-
-- Lesson learned - always keep up to date 2FA recovery codes if you have 2FA enabled on your account and loose your authentication app :(
+- Lesson learned - always keep up to date 2FA recovery codes if you have 2FA enabled on your account and lose your authentication app :(
