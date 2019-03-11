@@ -9,7 +9,7 @@ Lightning fast zero dependency library for embedding gists on your webpage.
 ```html
 <script
   type="text/javascript"
-  src="https://cdn.jsdelivr.net/npm/gist-embed@1.0.2/dist/gist-embed.min.js"
+  src="https://cdn.jsdelivr.net/npm/gist-embed@1.0.3/dist/gist-embed.min.js"
 ></script>
 ```
 
