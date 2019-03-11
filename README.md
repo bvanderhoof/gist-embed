@@ -35,7 +35,7 @@ You can add attributes to your HTML Element that modify the gist embed.
   - **type**: string `('true')`
   - Removes all of the line numbers in the left hand gutter of the gist
 - `data-gist-hide-footer`
-  - **type**: boolean `('true')`
+  - **type**: string `('true')`
   - Removes the gist footer
 - `data-gist-caption`
   - **type**: string
