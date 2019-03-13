@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>gist-embed tests</title>
+    <title>gist-embed</title>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
     <meta
       name="description"
-      content="Ultra powered gist embedding for your website"
+      content="Lightning fast zero dependency library for embedding gists on your website"
     />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="../dist/gist-embed.min.js"></script>
     <style>
       body,
       html {
-        margin: 0;
         padding: 0;
         background-color: #fff;
         font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light',
           'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
         font-weight: 300;
         color: #333;
+        margin: 10px;
       }
 
       p {
@@ -35,9 +35,78 @@
         font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light',
           'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
       }
+
+      header {
+        margin-bottom: 40px;
+      }
+      header a {
+        color: #444;
+      }
+      header a:hover {
+        color: #dd1144;
+      }
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-weight: normal;
+      }
+      h1 {
+        font-size: 32px;
+        margin-bottom: 8px;
+      }
+      h2 {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+      h3 {
+        font-size: 18px;
+      }
+
+      .icon {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        margin-top: -4px;
+      }
+      .attribution {
+        font-size: 16px;
+        clear: both;
+        margin-top: 8px;
+      }
+      .attribution a {
+        margin-bottom: 0;
+      }
+      a.icons {
+        text-decoration: none;
+        margin-bottom: 5px;
+        display: block;
+      }
     </style>
   </head>
   <body>
+    <header>
+      <h1>
+        <a href="https://github.com/blairvanderhoof/gist-embed">gist-embed</a>
+      </h1>
+      <h2>
+        Lightning fast zero dependency library for embedding gists on your
+        website
+      </h2>
+      <h3>
+        <span class="iconBlock">
+          <a class="icons" href="https://github.com/bvanderhoof/gist-embed">
+            <img class="icon" src="github-icon.png" />
+            <span>Documentation and source on Github</span>
+          </a>
+        </span>
+        <div class="attribution">
+          <span>written by</span>
+          <a href="http://blairvanderhoof.com">Blair Vanderhoof</a>
+        </div>
+      </h3>
+    </header>
+
     <p>Loading a gist</p>
     <code data-gist-id="5457595"></code>
 
