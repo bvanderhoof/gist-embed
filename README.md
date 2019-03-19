@@ -98,6 +98,6 @@ You can add attributes to your HTML Element that modify the gist embed.
 - This will be a plain vanilla JS library from now on.
 - The gists should load much faster now that we are removing jQuery as a dependency.
 
-## Why did you your old account?
+## How did tou lose your old account?
 
 - Lesson learned - always keep up to date 2FA recovery codes if you have 2FA enabled on your account and lose your authentication app :(
