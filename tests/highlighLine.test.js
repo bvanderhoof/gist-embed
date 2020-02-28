@@ -67,3 +67,19 @@ test('line range and commas', () => {
   highlightLine(element, '2,3,4,5-7');
   testLinesAreHighlighted(element, ['2', '3', '4', '5', '6', '7']);
 });
+
+test('line range all', () => {
+  const element = generateMockElement(10);
+  highlightLine(element, '2-');
+  testLinesAreHighlighted(element, [
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+  ]);
+});

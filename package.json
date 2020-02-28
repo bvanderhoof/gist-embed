@@ -58,7 +58,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test&& npm run prod && lint-staged && git add ."
+      "pre-commit": "npm test && npm run prod && lint-staged && git add ."
     }
   },
   "lint-staged": {

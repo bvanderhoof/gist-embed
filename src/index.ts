@@ -1,8 +1,8 @@
-import hideLineNumbers from './modifiers/hideLineNumbers';
-import hideFooter from './modifiers/hideFooter';
 import caption from './modifiers/caption';
-import line from './modifiers/line';
+import hideFooter from './modifiers/hideFooter';
+import hideLineNumbers from './modifiers/hideLineNumbers';
 import highlightLine from './modifiers/highlightLine';
+import line from './modifiers/line';
 
 // Global methods
 const GIST_EMBED_GLOBAL_FUNC_NAME = 'GistEmbed';

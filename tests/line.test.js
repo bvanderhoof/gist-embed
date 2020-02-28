@@ -67,3 +67,20 @@ test('line range and commas', () => {
   expect(element.querySelectorAll('table tbody tr').length).toEqual(6);
   testLinesReturnedMatchRange(element, ['2', '3', '4', '5', '6', '7']);
 });
+
+test('line range all', () => {
+  const element = generateMockElement(10);
+  line(element, '2-');
+  expect(element.querySelectorAll('table tbody tr').length).toEqual(9);
+  testLinesReturnedMatchRange(element, [
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+  ]);
+});

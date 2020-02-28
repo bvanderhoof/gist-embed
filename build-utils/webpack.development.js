@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = () => ({
   output: {
-    filename: 'index.js',
+    filename: 'dist/gist-embed.min.js',
   },
   devtool: 'eval-source-map',
   devServer: {

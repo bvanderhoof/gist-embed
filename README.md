@@ -66,12 +66,12 @@ You can add attributes to your HTML Element that modify the gist embed.
 
 - To start the dev server: `npm run dev`
 - This starts webpack with a local web server and hot reloading
-- navigate to http://localhost:8080/test.html
-- webpack serves the compiled TypeScript `index.ts` to `/index.js` when in development mode
+- navigate to http://localhost:8080/
+- webpack serves the compiled TypeScript `index.ts` to `/dist/gist-embed.min.js` when in development mode
 
 ## Tests
 
-- Please add unti tests for your new code.
+- Please add unit tests for your new code.
 - `npm test`
 - Use `Rewire` methods to get access to private functions in `index.ts`. See `tests/index.test.js` for examples.
 - Add an example to `index.html`
