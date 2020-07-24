@@ -51,7 +51,7 @@ You can add attributes to your HTML Element that modify the gist embed.
     - `1-4` // Only shows lines 1, 2, 3, and 4
     - `1-4,8` // Only shows lines 1, 2, 3, 4, and 8
     - `1-` // Shows lines 1 to the end
-- `data-gist-highlight`
+- `data-gist-highlight-line`
   - **type**: string
   - Line numbers you want to highlight. Uses the same syntax for line ranges as `data-gist-line`
 
