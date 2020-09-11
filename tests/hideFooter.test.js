@@ -8,7 +8,7 @@ function generateMockElement() {
   element.appendChild(footerDIV);
 
   const dataDIV = document.createElement('div');
-  dataDIV.classList.add('gist-data');
+  dataDIV.classList.add('gist-data', 'notranslate');
   element.appendChild(dataDIV);
 
   const fileDIV = document.createElement('div');
